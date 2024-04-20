@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native-web';
+import { View, TextInput, StyleSheet } from 'react-native-web';
+
+import {
+    Box,
+    Heading,
+    HStack,
+    Progress,
+    ProgressFilledTrack,
+    Text,
+    Button,
+    Divider,
+    Icon,
+    StarIcon,
+    ArrowLeftIcon, AvatarFallbackText, Avatar, InputField, Input, ButtonText, TextareaInput, Textarea
+} from '@gluestack-ui/themed';
 
 export default function HomeScreen({ navigation }: any) {
     const [text, setText] = useState('');
@@ -19,18 +33,37 @@ export default function HomeScreen({ navigation }: any) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Let's start with the topic!</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Input text"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-            />
-            <View style={styles.fileUploadContainer}>
-                <Text>Select a file:</Text>
-                <input type="file" onChange={handleFileUpload} />
-            </View>
-            <Button title="Start elaboration" onPress={handleProcess} style={styles.button} />
+            <Text>Let's start with the topic!</Text>
+
+            <Textarea>
+                <TextareaInput placeholder="Inserisci un testo"/>
+            </Textarea>
+            {/*<Input*/}
+            {/*    variant="outline"*/}
+            {/*    size="md"*/}
+            {/*    isDisabled={false}*/}
+            {/*    isInvalid={false}*/}
+            {/*    isReadOnly={false}*/}
+            {/*>*/}
+            {/*    <InputField placeholder="Inserisci un testo" value={text}/>*/}
+            {/*</Input>*/}
+
+            <Text>Select a file:</Text>
+            {/*<FileInput onChange={handleFileUpload}>*/}
+            {/*    <Button colorScheme="primary">Select File</Button>*/}
+            {/*</FileInput>*/}
+
+            <input type="file" onChange={handleFileUpload} />
+            <Button
+                size="md"
+                variant="solid"
+                action="primary"
+                isDisabled={false}
+                isFocusVisible={false}
+                onPress={handleProcess}
+            >
+                <ButtonText>Elabora</ButtonText>
+            </Button>
         </View>
     );
 }

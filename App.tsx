@@ -7,6 +7,9 @@ import HomeScreen from './Tabs/HomeScreen/HomeScreen';
 import SettingsScreen from './Tabs/SettingsScreen/SettingsScreen';
 import InferenceScreen from './Tabs/InferenceScreen/InferenceScreen';
 
+import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
+import { config } from "@gluestack-ui/config"
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -19,34 +22,36 @@ const TabNavigator = () => (
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Onboarding">
-                <Stack.Screen
-                    name="Onboarding"
-                    component={Onboarding}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="HomeScreen"
-                    component={HomeScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="SettingsScreen"
-                    component={SettingsScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="InferenceScreen"
-                    component={InferenceScreen}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Tabs"
-                    component={TabNavigator}
-                    options={{ headerShown: false }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <GluestackUIProvider config={config}>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="HomeScreen">
+                    <Stack.Screen
+                        name="Onboarding"
+                        component={Onboarding}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="HomeScreen"
+                        component={HomeScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="SettingsScreen"
+                        component={SettingsScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="InferenceScreen"
+                        component={InferenceScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Tabs"
+                        component={TabNavigator}
+                        options={{ headerShown: false }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </GluestackUIProvider>
     );
 }

@@ -1,5 +1,17 @@
 import React from "react";
-import { Text, Button, Input } from '@rneui/themed';
+import {
+    Button,
+    ButtonText,
+    ButtonIcon,
+    AddIcon,
+    Text,
+    Input,
+    InputField,
+    Box,
+    HStack,
+    VStack,
+    Card
+} from '@gluestack-ui/themed';
 import { View, StyleSheet } from "react-native";
 
 interface Props {
@@ -10,67 +22,54 @@ interface Props {
     onChangeText: (text: string) => void;
 }
 
-const Question = ({
-                      question,
-                      answer,
-                      onPressFeedback,
-                      onPressAnswer,
-                      onChangeText,
-                  }: Props): JSX.Element => {
+const Question = ({question, answer, onPressFeedback, onPressAnswer, onChangeText}: Props): JSX.Element => {
     return (
-        <View key={question} style={styles.questionContainer}>
-            <Text style={{fontWeight: 'bold'}}>{question}</Text>
-            <Input
-                placeholder="Inserisci la tua risposta"
-                onChangeText={(text) => onChangeText(text)}
-            />
-            <View style={styles.buttonContainer}>
-                <Button color="secondary"
-                    title="Dammi un feedback"
-                    onPress={onPressFeedback}
-                />
-                <Button
-                    title="Dammi la tua risposta"
-                    onPress={onPressAnswer}
-                />
-            </View>
-        </View>
+        <Card
+            bg="#FAFAFA"
+            p="$5"
+            rounded="$md"
+            // width={375}
+            width="33%"
+            size="md"
+            variant="outline"
+        >
+            <VStack space="lg">
+                <Text fontSize="$md">{question}</Text>
+                <Input
+                    variant="outline"
+                    size="md"
+                    isDisabled={false}
+                    isInvalid={false}
+                    isReadOnly={false}
+                >
+                    <InputField placeholder="Inserisci la tua risposta" />
+                </Input>
+                <HStack space="lg" justifyContent="space-between" height="100%">
+                    <Text>{}/100</Text>
+                    <Button
+                        size="md"
+                        variant="solid"
+                        action="secondary"
+                        isDisabled={false}
+                        isFocusVisible={false}
+                        onPress={onPressFeedback}
+                    >
+                        <ButtonText>Valuta</ButtonText>
+                    </Button>
+                    <Button
+                        size="md"
+                        variant="solid"
+                        action="primary"
+                        isDisabled={false}
+                        isFocusVisible={false}
+                        onPress={onPressAnswer}
+                    >
+                        <ButtonText>Non la so</ButtonText>
+                    </Button>
+                </HStack>
+            </VStack>
+        </Card>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 16,
-    },
-    questionsContainer: {
-        width: '100%',
-    },
-    questionContainer: {
-        marginBottom: 24,
-    },
-    questionText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
-    answerInput: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 12,
-        paddingHorizontal: 8,
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-});
 
 export default Question;
