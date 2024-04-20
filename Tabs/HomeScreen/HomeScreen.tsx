@@ -15,7 +15,6 @@ export default function HomeScreen({ navigation }: any) {
     const handleProcess = () => {
         navigation.navigate('InferenceScreen');
         console.log('Avvio elaborazione dei dati');
-        // Logica per l'elaborazione dei dati
     };
 
     return (

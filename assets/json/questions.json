@@ -1,0 +1,116 @@
+{
+  "sections": [
+    {
+      "title": "Central Limit Theorem Explained",
+      "questions": [
+        {
+          "number": "1.1",
+          "question": "What is the central limit theorem and how does it relate to sample sizes in statistics?"
+        },
+        {
+          "number": "1.2",
+          "question": "Why is the central limit theorem considered important in the field of statistics?"
+        }
+      ]
+    },
+    {
+      "title": "Distribution of the Variable in the Population",
+      "questions": [
+        {
+          "number": "2.1",
+          "question": "What does it mean when the central limit theorem states 'regardless of the variable’s distribution in the population'?"
+        },
+        {
+          "number": "2.2",
+          "question": "Why is finite variance necessary for the central limit theorem to apply?"
+        },
+        {
+          "number": "2.3",
+          "question": "What are some characteristics of 'independent, identically distributed variables' mentioned in relation to the central limit theorem?"
+        }
+      ]
+    },
+    {
+      "title": "Sampling Distribution of the Mean",
+      "questions": [
+        {
+          "number": "3.1",
+          "question": "What is meant by 'sampling distribution of the mean'?"
+        },
+        {
+          "number": "3.2",
+          "question": "How does the shape of the sampling distribution change with different sample sizes?"
+        }
+      ]
+    },
+    {
+      "title": "Central Limit Theorem and a Sufficiently Large Sample Size",
+      "questions": [
+        {
+          "number": "4.1",
+          "question": "What effect does a sufficiently large sample size have on the sampling distribution of the mean?"
+        },
+        {
+          "number": "4.2",
+          "question": "How does the original distribution of the population affect the required sample size for the central limit theorem to hold?"
+        }
+      ]
+    },
+    {
+      "title": "Central Limit Theorem and Approximating the Normal Distribution",
+      "questions": [
+        {
+          "number": "5.1",
+          "question": "How does the central limit theorem link the population distribution to the sampling distribution?"
+        },
+        {
+          "number": "5.2",
+          "question": "Why is it significant that non-normal population distributions can result in normally distributed sampling distributions?"
+        }
+      ]
+    },
+    {
+      "title": "Properties of the Central Limit Theorem",
+      "questions": [
+        {
+          "number": "6.1",
+          "question": "What parameters define a normal distribution according to the central limit theorem?"
+        },
+        {
+          "number": "6.2",
+          "question": "How does the standard deviation of the sampling distribution change as sample size increases?"
+        }
+      ]
+    },
+    {
+      "title": "Empirical Demonstration of the Central Limit Theorem",
+      "questions": [
+        {
+          "number": "7.1",
+          "question": "What role does statistical simulation software play in demonstrating the central limit theorem empirically?"
+        },
+        {
+          "number": "7.2",
+          "question": "How do different sample sizes influence the shape of the sampling distribution in empirical tests of the central limit theorem?"
+        },
+        {
+          "number": "7.3",
+          "question": "What does the empirical testing reveal about the effect of population skewness on the sampling distributions?"
+        }
+      ]
+    },
+    {
+      "title": "Why is the Central Limit Theorem Important?",
+      "questions": [
+        {
+          "number": "8.1",
+          "question": "Why does the normality assumption matter in statistics and how does the central limit theorem support this assumption?"
+        },
+        {
+          "number": "8.2",
+          "question": "How does increasing the sample size lead to more precise estimates of the population mean?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,42 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native-web';
 
+// Importa il file JSON delle domande
+import questionData from '../../assets/json/questions.json';
+
 interface Question {
-    id: number;
-    text: string;
+    number: string;
+    question: string;
+}
+
+interface Section {
+    title: string;
+    questions: Question[];
 }
 
 export default function InferenceScreen() {
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+    const [answers, setAnswers] = useState<{ [key: string]: string }>({});
 
-    // Simula le domande ottenute dal large language model
-    const mockQuestions: Question[] = [
-        { id: 1, text: 'Qual è la capitale dell\'Italia?' },
-        { id: 2, text: 'Chi ha dipinto la Gioconda?' },
-        { id: 3, text: 'Quando è iniziata la Seconda Guerra Mondiale?' },
-        { id: 4, text: 'Quando è iniziata la Seconda Guerra Mondiale?' },
-    ];
-
-    useEffect(() => {
-        // Simula il caricamento delle domande dal large language model
-        setQuestions(mockQuestions);
-    }, []);
-
-    const handleAnswerChange = (questionId: number, answer: string) => {
+    const handleAnswerChange = (questionNumber: string, answer: string) => {
         setAnswers((prevAnswers) => ({
             ...prevAnswers,
-            [questionId]: answer,
+            [questionNumber]: answer,
         }));
     };
 
-    const handleFeedback = (questionId: number) => {
-        console.log(`Richiesta di feedback per la domanda ${questionId}`);
+    const handleFeedback = (questionNumber: string) => {
+        console.log(`Richiesta di feedback per la domanda ${questionNumber}`);
         // Logica per richiedere il feedback dal large language model
     };
 
-    const handleAnswer = (questionId: number) => {
-        console.log(`Richiesta di risposta per la domanda ${questionId}`);
+    const handleAnswer = (questionNumber: string) => {
+        console.log(`Richiesta di risposta per la domanda ${questionNumber}`);
         // Logica per richiedere la risposta dal large language model
     };
 
@@ -44,25 +38,30 @@ export default function InferenceScreen() {
         <View style={styles.container}>
             <Text style={styles.title}>Ecco le tue domande!</Text>
             <ScrollView style={styles.questionsContainer}>
-                {questions.map((question) => (
-                    <View key={question.id} style={styles.questionContainer}>
-                        <Text style={styles.questionText}>{question.text}</Text>
-                        <TextInput
-                            style={styles.answerInput}
-                            placeholder="Inserisci la tua risposta"
-                            value={answers[question.id] || ''}
-                            onChangeText={(text) => handleAnswerChange(question.id, text)}
-                        />
-                        <View style={styles.buttonContainer}>
-                            <Button
-                                title="Dammi un feedback"
-                                onPress={() => handleFeedback(question.id)}
-                            />
-                            <Button
-                                title="Dammi la tua risposta"
-                                onPress={() => handleAnswer(question.id)}
-                            />
-                        </View>
+                {questionData.sections.map((section) => (
+                    <View key={section.title} style={styles.sectionContainer}>
+                        <Text style={styles.sectionTitle}>{section.title}</Text>
+                        {section.questions.map((question) => (
+                            <View key={question.number} style={styles.questionContainer}>
+                                <Text style={styles.questionText}>{question.question}</Text>
+                                <TextInput
+                                    style={styles.answerInput}
+                                    placeholder="Inserisci la tua risposta"
+                                    value={answers[question.number] || ''}
+                                    onChangeText={(text) => handleAnswerChange(question.number, text)}
+                                />
+                                <View style={styles.buttonContainer}>
+                                    <Button
+                                        title="Dammi un feedback"
+                                        onPress={() => handleFeedback(question.number)}
+                                    />
+                                    <Button
+                                        title="Dammi la tua risposta"
+                                        onPress={() => handleAnswer(question.number)}
+                                    />
+                                </View>
+                            </View>
+                        ))}
                     </View>
                 ))}
             </ScrollView>
