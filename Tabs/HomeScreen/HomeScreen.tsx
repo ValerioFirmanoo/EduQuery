@@ -1,29 +1,38 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, Button, StyleSheet, SafeAreaView} from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native-web';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }: any) {
     const [text, setText] = useState('');
-    const [audioUri, setAudioUri] = useState('');
-    const [videoUri, setVideoUri] = useState('');
-    const [imageUri, setImageUri] = useState('');
+    const [file, setFile] = useState<File | null>(null);
+
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+        }
+    };
 
     const handleProcess = () => {
-        // Logica per avviare l'elaborazione dei dati
+        navigation.navigate('InferenceScreen');
         console.log('Avvio elaborazione dei dati');
+        // Logica per l'elaborazione dei dati
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Uploads your data</Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Let's start with the topic!</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Input text"
                 value={text}
-                onChangeText={setText}
+                onChange={(e) => setText(e.target.value)}
             />
-            {/* Aggiungi input per audio, video e immagini */}
-            <Button title="Start elaboration" onPress={handleProcess} />
-        </SafeAreaView>
+            <View style={styles.fileUploadContainer}>
+                <Text>Select a file:</Text>
+                <input type="file" onChange={handleFileUpload} />
+            </View>
+            <Button title="Start elaboration" onPress={handleProcess} style={styles.button} />
+        </View>
     );
 }
 
@@ -31,11 +40,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
+        alignItems: 'center',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 16,
+        textAlign: 'center',
     },
     input: {
         height: 40,
@@ -43,5 +54,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 12,
         paddingHorizontal: 8,
+        width: '100%',
+        maxWidth: 400,
+    },
+    fileUploadContainer: {
+        marginBottom: 16,
+        width: '100%',
+        maxWidth: 400,
+    },
+    button: {
+        width: '100%',
+        maxWidth: 400,
     },
 });

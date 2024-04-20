@@ -4,7 +4,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-} from 'react-native';
+} from 'react-native-web';
 import { StatusBar } from 'expo-status-bar';
 
 export default function OnboardingPage({ navigation }: any) {

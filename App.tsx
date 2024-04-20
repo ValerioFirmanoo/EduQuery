@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Onboarding from './Tabs/Onboarding/Onboarding';
 import HomeScreen from './Tabs/HomeScreen/HomeScreen';
 import SettingsScreen from './Tabs/SettingsScreen/SettingsScreen';
+import InferenceScreen from './Tabs/InferenceScreen/InferenceScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,6 +29,16 @@ export default function App() {
                 <Stack.Screen
                     name="HomeScreen"
                     component={HomeScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="SettingsScreen"
+                    component={SettingsScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="InferenceScreen"
+                    component={InferenceScreen}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
