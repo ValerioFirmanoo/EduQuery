@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     Button,
     ButtonText,
@@ -12,17 +12,23 @@ import {
     VStack,
     Card
 } from '@gluestack-ui/themed';
-import { View, StyleSheet } from "react-native";
 
 interface Props {
     question: string;
     answer: string;
     onPressFeedback: () => void;
     onPressAnswer: () => void;
-    onChangeText: (text: string) => void;
+    onInputChange: (text: string) => void;
 }
 
-const Question = ({question, answer, onPressFeedback, onPressAnswer, onChangeText}: Props): JSX.Element => {
+const Question = ({question, answer, onPressFeedback, onPressAnswer, onInputChange}: Props): JSX.Element => {
+    const [inputText, setInputText] = useState("");
+
+    const handleInputChange = (text: string) => {
+        setInputText(text);
+        onInputChange(text);
+    };
+
     return (
         <Card
             bg="#FAFAFA"
@@ -41,6 +47,8 @@ const Question = ({question, answer, onPressFeedback, onPressAnswer, onChangeTex
                     isDisabled={false}
                     isInvalid={false}
                     isReadOnly={false}
+                    value={inputText}
+                    onChangeText={handleInputChange}
                 >
                     <InputField placeholder="Inserisci la tua risposta" />
                 </Input>
