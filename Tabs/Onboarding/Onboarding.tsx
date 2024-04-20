@@ -1,22 +1,29 @@
-import React, {useState, useRef, useContext} from 'react'
+import React from 'react';
 import {
     View,
     Text,
     StyleSheet,
-    FlatList,
-    Animated,
     TouchableOpacity,
-    useWindowDimensions,
-} from 'react-native'
-import {StatusBar} from "expo-status-bar";
+} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 export default function OnboardingPage({ navigation }: any) {
+    const handleGetStarted = () => {
+        navigation.navigate('HomeScreen');
+    };
+
     return (
         <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
+            <Text style={styles.title}>Welcome to My App</Text>
+            <Text style={styles.description}>
+                This is the onboarding screen. Click the button below to get started.
+            </Text>
+            <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
+                <Text style={styles.buttonText}>Get Started</Text>
+            </TouchableOpacity>
             <StatusBar style="auto" />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -25,5 +32,27 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 20,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    description: {
+        fontSize: 16,
+        textAlign: 'center',
+        marginBottom: 30,
+    },
+    button: {
+        backgroundColor: '#007AFF',
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
     },
 });

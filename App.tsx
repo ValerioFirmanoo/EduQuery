@@ -1,30 +1,41 @@
-import * as React from 'react'
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Onboarding from './Tabs/Onboarding/Onboarding';
+import HomeScreen from './Tabs/HomeScreen/HomeScreen';
+import SettingsScreen from './Tabs/SettingsScreen/SettingsScreen';
 
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-import Onboarding from './Tabs/Onboarding/Onboarding'
-
-const Stack = createNativeStackNavigator()
-const Tab = createBottomTabNavigator()
+const TabNavigator = () => (
+    <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+    </Tab.Navigator>
+);
 
 export default function App() {
-  const [initialRouteName, setInitialRouteName] = React.useState<string>("Onboarding");
-
-  const routeName = 'Onboarding';
-
-  return (
-      <NavigationContainer>
-        <Stack.Navigator
-            screenOptions={{ headerShown: false }}
-            initialRouteName={initialRouteName}
-        >
-          <Stack.Screen name="Onboarding" component={Onboarding} />
-
-        </Stack.Navigator>
-      </NavigationContainer>
-  );
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Onboarding">
+                <Stack.Screen
+                    name="Onboarding"
+                    component={Onboarding}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="HomeScreen"
+                    component={HomeScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Tabs"
+                    component={TabNavigator}
+                    options={{ headerShown: false }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
