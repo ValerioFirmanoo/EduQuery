@@ -171,7 +171,7 @@ export default function HomeScreen({ navigation }: any) {
 
             const completion = response.data.choices[0].message.content;
 
-            navigation.navigate('InferenceScreen', { completion });
+            navigation.navigate('InferenceScreen', { completion, user_text });
         } catch (error) {
             console.error('Error:', error);
         }
