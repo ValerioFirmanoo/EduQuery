@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native-web';
+import { View, Text, StyleSheet, ScrollView } from 'react-native-web';
+import { Divider } from '@rneui/themed';
+import Question from '../../components/Question';
 
 // Importa il file JSON delle domande
 import questionData from '../../assets/json/questions.json';
@@ -7,11 +9,6 @@ import questionData from '../../assets/json/questions.json';
 interface Question {
     number: string;
     question: string;
-}
-
-interface Section {
-    title: string;
-    questions: Question[];
 }
 
 export default function InferenceScreen() {
@@ -42,26 +39,12 @@ export default function InferenceScreen() {
                     <View key={section.title} style={styles.sectionContainer}>
                         <Text style={styles.sectionTitle}>{section.title}</Text>
                         {section.questions.map((question) => (
-                            <View key={question.number} style={styles.questionContainer}>
-                                <Text style={styles.questionText}>{question.question}</Text>
-                                <TextInput
-                                    style={styles.answerInput}
-                                    placeholder="Inserisci la tua risposta"
-                                    value={answers[question.number] || ''}
-                                    onChangeText={(text) => handleAnswerChange(question.number, text)}
-                                />
-                                <View style={styles.buttonContainer}>
-                                    <Button
-                                        title="Dammi un feedback"
-                                        onPress={() => handleFeedback(question.number)}
-                                    />
-                                    <Button
-                                        title="Dammi la tua risposta"
-                                        onPress={() => handleAnswer(question.number)}
-                                    />
-                                </View>
-                            </View>
+                            <Question
+                                    question={question.question}
+                                    answer="Answer"
+                            />
                         ))}
+                        <Divider />
                     </View>
                 ))}
             </ScrollView>
@@ -85,6 +68,11 @@ const styles = StyleSheet.create({
     },
     questionContainer: {
         marginBottom: 24,
+    },
+    sectionTitle: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        margin: 8,
     },
     questionText: {
         fontSize: 18,

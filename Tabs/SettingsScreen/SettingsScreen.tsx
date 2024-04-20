@@ -84,11 +84,6 @@ const styles = StyleSheet.create({
     profileSection: {
         marginBottom: 24,
     },
-    sectionTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
     input: {
         height: 40,
         borderColor: 'gray',
