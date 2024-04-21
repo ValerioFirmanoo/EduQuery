@@ -40,7 +40,6 @@ export default function InferenceScreen({ navigation }: any) {
     const handleEvaluate = (score: number) => {
         setScores((prevScores) => {
             const updatedScores = [...prevScores, score];
-            const totalQuestions = parsedCompletion.sections.reduce((sum, section) => sum + section.questions.length, 0);
             const answeredQuestions = updatedScores.length;
             const totalScore = updatedScores.reduce((sum, s) => sum + s, 0);
             const maxPossibleScore = answeredQuestions * 100;
@@ -78,7 +77,7 @@ export default function InferenceScreen({ navigation }: any) {
                 <Pressable
                     onPress={goBack}
                 >
-                    <Icon as={ArrowLeftIcon} m="$2" w="$4" h="$4" />
+                    <Icon as={ArrowLeftIcon} m="$2" w="$8" h="$8" />
                 </Pressable>
                 <Heading>Ecco le tue domande!</Heading>
             </HStack>
