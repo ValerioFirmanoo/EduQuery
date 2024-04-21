@@ -6,6 +6,7 @@ import Onboarding from './Tabs/Onboarding/Onboarding';
 import HomeScreen from './Tabs/HomeScreen/HomeScreen';
 import SettingsScreen from './Tabs/SettingsScreen/SettingsScreen';
 import InferenceScreen from './Tabs/InferenceScreen/InferenceScreen';
+import SummaryScreen from './Tabs/SummaryScreen/SummaryScreen';
 
 import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config"
@@ -43,6 +44,11 @@ export default function App() {
                     <Stack.Screen
                         name="InferenceScreen"
                         component={InferenceScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="SummaryScreen"
+                        component={SummaryScreen}
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen

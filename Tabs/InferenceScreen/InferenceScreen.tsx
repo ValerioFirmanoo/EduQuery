@@ -58,8 +58,9 @@ export default function InferenceScreen({ navigation }: any) {
         setCompletionText(text);
     };
 
-    const handleAnswer = () => {
-        console.log(`Richiesta di risposta per la domanda`);
+    const handleSummary = () => {
+        console.log(`Richiesta summary`);
+        navigation.navigate('SummaryScreen', { user_text, completion });
     };
 
     const handleScoreChange = (score: number) => {
@@ -133,6 +134,17 @@ export default function InferenceScreen({ navigation }: any) {
                     </ModalContent>
                 </Modal>
             </ScrollView>
+            <Divider my="$3"/>
+            <Button
+                size="md"
+                variant="solid"
+                action="primary"
+                isDisabled={false}
+                isFocusVisible={false}
+                onPress={handleSummary}
+            >
+                <ButtonText>Summary</ButtonText>
+            </Button>
         </View>
     );
 }
