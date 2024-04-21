@@ -14,7 +14,7 @@ export default function OnboardingPage({ navigation }: any) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Welcome to EdTech</Text>
+            <Text style={styles.title}>Welcome to EduQuery</Text>
             <Text style={styles.description}>
                 Click the button below to get started.
             </Text>
