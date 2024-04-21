@@ -213,10 +213,10 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
                     }}
                     value={inputText}
                     onChangeText={handleInputChange}
-                    placeholder="Inserisci la tua risposta"
+                    placeholder="Insert your answer..."
                 />
                 <HStack space="lg" justifyContent="space-between" height="100%">
-                    <Text>{score !== null ? score : 'N/A'}/100</Text>
+                    <Text>{score != null ? `${score}/100` : 'N/A'}</Text>
                     <Button
                         size="md"
                         variant="solid"
@@ -226,7 +226,7 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
                         onPress={handleFeedback}
                         ref={ref}
                     >
-                        <ButtonText>Valuta</ButtonText>
+                        <ButtonText>Feedback!</ButtonText>
                     </Button>
                     <Button
                         size="md"
@@ -237,7 +237,7 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
                         onPress={handleAnswer}
                         ref={ref}
                     >
-                        <ButtonText>Non la so</ButtonText>
+                        <ButtonText>Help me!</ButtonText>
                     </Button>
                 </HStack>
             </VStack>

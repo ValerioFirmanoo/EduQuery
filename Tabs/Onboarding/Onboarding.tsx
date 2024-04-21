@@ -14,9 +14,9 @@ export default function OnboardingPage({ navigation }: any) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Welcome to My App</Text>
+            <Text style={styles.title}>Welcome to EdTech</Text>
             <Text style={styles.description}>
-                This is the onboarding screen. Click the button below to get started.
+                Click the button below to get started.
             </Text>
             <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
                 <Text style={styles.buttonText}>Get Started</Text>

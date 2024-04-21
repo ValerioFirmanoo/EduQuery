@@ -211,7 +211,7 @@ export default function HomeScreen({ navigation }: any) {
                 isFocusVisible={false}
                 onPress={handleProcess}
             >
-                <ButtonText>Elabora</ButtonText>
+                <ButtonText>Process the text</ButtonText>
             </Button>
         </View>
     );

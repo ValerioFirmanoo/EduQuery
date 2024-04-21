@@ -63,7 +63,7 @@ export default function SummaryScreen({ navigation }: any) {
 
     return (
         <View style={styles.container}>
-            <Heading>Ecco il riassunto!</Heading>
+            <Heading>Here is the summary!</Heading>
             <Divider my="$3"/>
             <ScrollView>
                 <Markdown>{generatedText}</Markdown>

@@ -78,9 +78,9 @@ export default function InferenceScreen({ navigation }: any) {
                 <Pressable
                     onPress={goBack}
                 >
-                    <Icon as={ArrowLeftIcon} m="$2" w="$8" h="$8" />
+                    <Icon as={ArrowLeftIcon} m="$2" w="$6" h="$6" />
                 </Pressable>
-                <Heading>Ecco le tue domande!</Heading>
+                <Heading>Here are your questions!</Heading>
             </HStack>
             <Progress value={averageScore} w={300} size="md" my="$2">
                 <ProgressFilledTrack />
@@ -139,7 +139,7 @@ export default function InferenceScreen({ navigation }: any) {
                 size="md"
                 variant="solid"
                 action="primary"
-                isDisabled={false}
+                isDisabled={averageScore !== null && averageScore <= 50}
                 isFocusVisible={false}
                 onPress={handleSummary}
             >

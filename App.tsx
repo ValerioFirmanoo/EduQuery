@@ -25,7 +25,7 @@ export default function App() {
     return (
         <GluestackUIProvider config={config}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="HomeScreen">
+                <Stack.Navigator initialRouteName="Onboarding">
                     <Stack.Screen
                         name="Onboarding"
                         component={Onboarding}
