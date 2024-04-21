@@ -31,9 +31,25 @@ export default function InferenceScreen({ navigation }: any) {
     const route = useRoute();
     const [showModal, setShowModal] = useState(false);
     const [completionText, setCompletionText] = useState("");
+    const [scores, setScores] = useState<number[]>([]);
+    const [averageScore, setAverageScore] = useState(0);
     const ref = useRef(null);
     const { completion, user_text } = route.params;
     const parsedCompletion = JSON.parse(completion);
+
+    const handleEvaluate = (score: number) => {
+        setScores((prevScores) => {
+            const updatedScores = [...prevScores, score];
+            const totalQuestions = parsedCompletion.sections.reduce((sum, section) => sum + section.questions.length, 0);
+            const answeredQuestions = updatedScores.length;
+            const totalScore = updatedScores.reduce((sum, s) => sum + s, 0);
+            const maxPossibleScore = answeredQuestions * 100;
+            const completionPercentage = (totalScore / maxPossibleScore) * 100;
+            setAverageScore(completionPercentage);
+            console.log('Completion percentage:', completionPercentage);
+            return updatedScores;
+        });
+    };
 
     const handleQuestionInputChange = (text: string) => {
         setQuestionText(text);
@@ -45,6 +61,10 @@ export default function InferenceScreen({ navigation }: any) {
 
     const handleAnswer = () => {
         console.log(`Richiesta di risposta per la domanda`);
+    };
+
+    const handleScoreChange = (score: number) => {
+        setScores((prevScores) => [...prevScores, score]);
     };
 
     const goBack = () => {
@@ -61,9 +81,8 @@ export default function InferenceScreen({ navigation }: any) {
                     <Icon as={ArrowLeftIcon} m="$2" w="$4" h="$4" />
                 </Pressable>
                 <Heading>Ecco le tue domande!</Heading>
-                <Icon as={StarIcon} mx="$2" h="auto" />
             </HStack>
-            <Progress value={40} w={300} size="md" my="$2">
+            <Progress value={averageScore} w={300} size="md" my="$2">
                 <ProgressFilledTrack />
             </Progress>
             <Divider my="$3"/>
@@ -73,7 +92,7 @@ export default function InferenceScreen({ navigation }: any) {
                         <Text size="2xl" mb="$2">{section.title}</Text>
                         <HStack space="md" reversed={false}>
                             {section.questions.map((question) => (
-                                <Question user_text={user_text} question={question.question} answer="Answer" onInputChange={handleQuestionInputChange} setShowModal={setShowModal} ref={ref} onCompletionChange={handleCompletionChange}/>
+                                <Question user_text={user_text} question={question.question} answer="Answer" onInputChange={handleQuestionInputChange} setShowModal={setShowModal} ref={ref} onCompletionChange={handleCompletionChange} onScoreChange={handleScoreChange} onEvaluate={handleEvaluate}/>
                             ))}
                         </HStack>
                         <Divider my="$3"/>

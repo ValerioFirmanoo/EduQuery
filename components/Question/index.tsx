@@ -24,9 +24,11 @@ interface Props {
     setShowModal: (value: boolean) => void;
     ref: React.RefObject<any>;
     onCompletionChange: (text: string) => void;
+    onScoreChange: (score: number) => void;
+    onEvaluate: (score: number) => void;
 }
 
-const Question = ({user_text, question, answer, onInputChange, setShowModal, ref, onCompletionChange}: Props): JSX.Element => {
+const Question = ({user_text, question, answer, onInputChange, setShowModal, ref, onCompletionChange, onScoreChange, onEvaluate}: Props): JSX.Element => {
     const [inputText, setInputText] = useState("");
     const [completion, setCompletion] = useState("");
     const [score, setScore] = useState(null);
@@ -43,6 +45,12 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
     useEffect(() => {
         handleCompletionChange(completion);
     }, [completion]);
+
+    useEffect(() => {
+        if (score !== null) {
+            onScoreChange(score);
+        }
+    }, [score, onScoreChange]);
 
     const system_prompt_feedback = 'You will have a text of study materials. You have this task To classify the answer of a student trying to learn this concepts, in two categories:\n' +
         '  Score between 0 and 100, in step of 1 depending on the correctdness and completeness of the answer.\n' +
@@ -147,6 +155,7 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
             if (matchResult && matchResult[1]) {
                 const extractedScore = parseInt(matchResult[1], 10);
                 setScore(extractedScore);
+                onEvaluate(extractedScore);
                 console.log('Score:', extractedScore);
             }
 
@@ -207,7 +216,7 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
                     placeholder="Inserisci la tua risposta"
                 />
                 <HStack space="lg" justifyContent="space-between" height="100%">
-                    <Text>{score !== null ? score : 'N/A'}100</Text>
+                    <Text>{score !== null ? score : 'N/A'}/100</Text>
                     <Button
                         size="md"
                         variant="solid"
@@ -223,7 +232,7 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
                         size="md"
                         variant="solid"
                         action="primary"
-                        isDisabled={false}
+                        isDisabled={score !== null && score <= 40}
                         isFocusVisible={false}
                         onPress={handleAnswer}
                         ref={ref}
