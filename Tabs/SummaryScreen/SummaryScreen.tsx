@@ -23,7 +23,7 @@ import {
     ModalCloseButton,
     CloseIcon, ModalBody, Button, ModalFooter, ButtonText
 } from '@gluestack-ui/themed';
-import {Pressable} from "react-native";
+import Markdown from 'react-native-markdown-display';
 
 export default function SummaryScreen({ navigation }: any) {
     const route = useRoute();
@@ -37,7 +37,7 @@ export default function SummaryScreen({ navigation }: any) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const system_prompt_answer = 'Summarize the text';
+            const system_prompt_answer = 'Given a text containing study material, some questions about it generate a summary of the text, following the structure of the questions (use the same numbers of the questions). The summary should not be too short. In the whole  summary highlight in bold the most important words.';
 
             const response = await axios.post(
                 'https://api.openai.com/v1/chat/completions',
@@ -66,7 +66,7 @@ export default function SummaryScreen({ navigation }: any) {
             <Heading>Ecco il riassunto!</Heading>
             <Divider my="$3"/>
             <ScrollView>
-                <Text>{generatedText}</Text>
+                <Markdown>{generatedText}</Markdown>
             </ScrollView>
             <Divider my="$3"/>
             <Button
