@@ -29,6 +29,7 @@ interface Props {
 const Question = ({user_text, question, answer, onInputChange, setShowModal, ref, onCompletionChange}: Props): JSX.Element => {
     const [inputText, setInputText] = useState("");
     const [completion, setCompletion] = useState("");
+    const [score, setScore] = useState(null);
 
     const handleInputChange = (text: string) => {
         setInputText(text);
@@ -139,6 +140,16 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
             const completion = response.data.choices[0].message.content;
             setCompletion(completion);
             setShowModal(true);
+
+            const scoreRegex = /Score:\s*(\d+)/;
+            const matchResult = completion.match(scoreRegex);
+
+            if (matchResult && matchResult[1]) {
+                const extractedScore = parseInt(matchResult[1], 10);
+                setScore(extractedScore);
+                console.log('Score:', extractedScore);
+            }
+
             console.log('Completion:', completion);
         } catch (error) {
             console.error('Error:', error);
@@ -196,7 +207,7 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
                     placeholder="Inserisci la tua risposta"
                 />
                 <HStack space="lg" justifyContent="space-between" height="100%">
-                    <Text>{}/100</Text>
+                    <Text>{score !== null ? score : 'N/A'}100</Text>
                     <Button
                         size="md"
                         variant="solid"
