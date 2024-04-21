@@ -17,8 +17,12 @@ import {
 } from '@gluestack-ui/themed';
 
 export default function HomeScreen({ navigation }: any) {
-    const [text, setText] = useState('');
+    const [inputText, setInputText] = useState("");
     const [file, setFile] = useState<File | null>(null);
+
+    const handleInputChange = (text: string) => {
+        setInputText(text);
+    };
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
@@ -27,13 +31,7 @@ export default function HomeScreen({ navigation }: any) {
         }
     };
 
-    const user_text = 'The second law of thermodynamics is a physical law based on universal empirical observation concerning heat and energy interconversions. A simple statement of the law is that heat always flows spontaneously from hotter to colder regions of matter (or \'downhill\' in terms of the temperature gradient). Another statement is: "Not all heat can be converted into work in a cyclic process."[1][2][3]\n' +
-        '\n' +
-        'The second law of thermodynamics establishes the concept of entropy as a physical property of a thermodynamic system. It predicts whether processes are forbidden despite obeying the requirement of conservation of energy as expressed in the first law of thermodynamics and provides necessary criteria for spontaneous processes. For example, the first law allows the process of a cup falling off a table and breaking on the floor, as well as allowing the reverse process of the cup fragments coming back together and \'jumping\' back onto the table, while the second law allows the former and denies the latter. The second law may be formulated by the observation that the entropy of isolated systems left to spontaneous evolution cannot decrease, as they always tend toward a state of thermodynamic equilibrium where the entropy is highest at the given internal energy.[4] An increase in the combined entropy of system and surroundings accounts for the irreversibility of natural processes, often referred to in the concept of the arrow of time.[5][6]\n' +
-        '\n' +
-        'Historically, the second law was an empirical finding that was accepted as an axiom of thermodynamic theory. Statistical mechanics provides a microscopic explanation of the law in terms of probability distributions of the states of large assemblies of atoms or molecules. The second law has been expressed in many ways. Its first formulation, which preceded the proper definition of entropy and was based on caloric theory, is Carnot\'s theorem, formulated by the French scientist Sadi Carnot, who in 1824 showed that the efficiency of conversion of heat to work in a heat engine has an upper limit.[7][8] The first rigorous definition of the second law based on the concept of entropy came from German scientist Rudolf Clausius in the 1850s and included his statement that heat can never pass from a colder to a warmer body without some other change, connected therewith, occurring at the same time.\n' +
-        '\n' +
-        'The second law of thermodynamics allows the definition of the concept of thermodynamic temperature, but this has been formally delegated to the zeroth law of thermodynamics.'
+    const user_text = inputText;
 
     const prompt_questions = '"Divide the text in sections, for each section write some questions in order to guide the student that is reading in his understanding. Mask the answer and only provide the questions. It is important that you number the questions correclty, like question 2 of section 3 must be numbered as 3.2. The output must be an appropriate json formatting, handling the nesting of questions belonging to same sections. Here is an example:"{\n' +
         '  "sections": [\n' +
@@ -179,15 +177,32 @@ export default function HomeScreen({ navigation }: any) {
 
     return (
         <View style={styles.container}>
-            <Text>Let's start with the topic!</Text>
+            <Heading>Let's start with the topic!</Heading>
+            <Divider my="$3"/>
 
-            <Textarea>
-                <TextareaInput placeholder="Inserisci un testo"/>
-            </Textarea>
+            <TextInput
+                style={{
+                    height: 200,
+                    borderColor: 'gray',
+                    borderWidth: 1,
+                    paddingHorizontal: 10,
+                    borderRadius: 8,
+                    width: '90%',
+                    textAlignVertical: 'top',
+                    textAlign: 'left',
+                }}
+                value={inputText}
+                onChangeText={handleInputChange}
+                placeholder="Insert text..."
+                multiline
+            />
+            <Divider my="$3"/>
 
+            {/*
             <Text>Select a file:</Text>
 
             <input type="file" onChange={handleFileUpload} />
+            */}
             <Button
                 size="md"
                 variant="solid"
