@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Button,
     ButtonText,
@@ -21,15 +21,27 @@ interface Props {
     question: string;
     answer: string;
     onInputChange: (text: string) => void;
+    setShowModal: (value: boolean) => void;
+    ref: React.RefObject<any>;
+    onCompletionChange: (text: string) => void;
 }
 
-const Question = ({user_text, question, answer, onInputChange}: Props): JSX.Element => {
+const Question = ({user_text, question, answer, onInputChange, setShowModal, ref, onCompletionChange}: Props): JSX.Element => {
     const [inputText, setInputText] = useState("");
+    const [completion, setCompletion] = useState("");
 
     const handleInputChange = (text: string) => {
         setInputText(text);
         onInputChange(text);
     };
+
+    const handleCompletionChange = (text: string) => {
+        onCompletionChange(text);
+    };
+
+    useEffect(() => {
+        handleCompletionChange(completion);
+    }, [completion]);
 
     const system_prompt_feedback = 'You will have a text of study materials. You have this task To classify the answer of a student trying to learn this concepts, in two categories:\n' +
         '  Score between 0 and 100, in step of 1 depending on the correctdness and completeness of the answer.\n' +
@@ -125,7 +137,8 @@ const Question = ({user_text, question, answer, onInputChange}: Props): JSX.Elem
             );
 
             const completion = response.data.choices[0].message.content;
-
+            setCompletion(completion);
+            setShowModal(true);
             console.log('Completion:', completion);
         } catch (error) {
             console.error('Error:', error);
@@ -150,7 +163,8 @@ const Question = ({user_text, question, answer, onInputChange}: Props): JSX.Elem
             );
 
             const completion = response.data.choices[0].message.content;
-
+            setCompletion(completion);
+            setShowModal(true);
             console.log('Completion:', completion);
         } catch (error) {
             console.error('Error:', error);
@@ -190,6 +204,7 @@ const Question = ({user_text, question, answer, onInputChange}: Props): JSX.Elem
                         isDisabled={false}
                         isFocusVisible={false}
                         onPress={handleFeedback}
+                        ref={ref}
                     >
                         <ButtonText>Valuta</ButtonText>
                     </Button>
@@ -200,6 +215,7 @@ const Question = ({user_text, question, answer, onInputChange}: Props): JSX.Elem
                         isDisabled={false}
                         isFocusVisible={false}
                         onPress={handleAnswer}
+                        ref={ref}
                     >
                         <ButtonText>Non la so</ButtonText>
                     </Button>

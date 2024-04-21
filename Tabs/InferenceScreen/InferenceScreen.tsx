@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native-web';
 import Question from '../../components/Question';
 import { useRoute } from '@react-navigation/native';
@@ -13,7 +13,15 @@ import {
     Divider,
     Icon,
     StarIcon,
-    ArrowLeftIcon, AvatarFallbackText, Avatar
+    ArrowLeftIcon,
+    AvatarFallbackText,
+    Avatar,
+    Modal,
+    ModalBackdrop,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    CloseIcon, ModalBody, Button, ModalFooter, ButtonText
 } from '@gluestack-ui/themed';
 import {Pressable} from "react-native";
 
@@ -21,11 +29,18 @@ export default function InferenceScreen({ navigation }: any) {
     const [answers, setAnswers] = useState<{ [key: string]: string }>({});
     const [questionText, setQuestionText] = useState("");
     const route = useRoute();
+    const [showModal, setShowModal] = useState(false);
+    const [completionText, setCompletionText] = useState("");
+    const ref = useRef(null);
     const { completion, user_text } = route.params;
     const parsedCompletion = JSON.parse(completion);
 
     const handleQuestionInputChange = (text: string) => {
         setQuestionText(text);
+    };
+
+    const handleCompletionChange = (text: string) => {
+        setCompletionText(text);
     };
 
     const handleAnswer = () => {
@@ -58,12 +73,47 @@ export default function InferenceScreen({ navigation }: any) {
                         <Text size="2xl" mb="$2">{section.title}</Text>
                         <HStack space="md" reversed={false}>
                             {section.questions.map((question) => (
-                                <Question user_text={user_text} question={question.question} answer="Answer" onInputChange={handleQuestionInputChange}/>
+                                <Question user_text={user_text} question={question.question} answer="Answer" onInputChange={handleQuestionInputChange} setShowModal={setShowModal} ref={ref} onCompletionChange={handleCompletionChange}/>
                             ))}
                         </HStack>
                         <Divider my="$3"/>
                     </View>
                 ))}
+                <Modal
+                    isOpen={showModal}
+                    onClose={() => {
+                        setShowModal(false)
+                    }}
+                    finalFocusRef={ref}
+                >
+                    <ModalBackdrop />
+                    <ModalContent>
+                        <ModalHeader>
+                            <Heading size="lg">Model output</Heading>
+                            <ModalCloseButton>
+                                <Icon as={CloseIcon} />
+                            </ModalCloseButton>
+                        </ModalHeader>
+                        <ModalBody>
+                            <Text>
+                                {completionText}
+                            </Text>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                action="secondary"
+                                mr="$3"
+                                onPress={() => {
+                                    setShowModal(false)
+                                }}
+                            >
+                                <ButtonText>Cancel</ButtonText>
+                            </Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
             </ScrollView>
         </View>
     );
