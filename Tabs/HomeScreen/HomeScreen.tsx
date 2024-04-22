@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native-web';
 import axios from 'axios';
-
+import { OPENAI_API_KEY } from 'react-native-dotenv';
 import {
     Box,
     Heading,
@@ -162,7 +162,7 @@ export default function HomeScreen({ navigation }: any) {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer sk-proj-Mq1OD4U3rpPZAa1IsxdIT3BlbkFJ4TmKVm9XQDiotqz3eRUx`,
+                        'Authorization': `Bearer ${OPENAI_API_KEY}`,
                     },
                 }
             );

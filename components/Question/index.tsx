@@ -15,6 +15,7 @@ import {
 
 import axios from 'axios';
 import {TextInput} from "react-native";
+import { OPENAI_API_KEY } from 'react-native-dotenv';
 
 interface Props {
     user_text: string;
@@ -140,7 +141,7 @@ const Question = ({user_text, question, answer, onInputChange, setShowModal, ref
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer sk-proj-Mq1OD4U3rpPZAa1IsxdIT3BlbkFJ4TmKVm9XQDiotqz3eRUx`,
+                        'Authorization': `Bearer ${OPENAI_API_KEY}`,
                     },
                 }
             );

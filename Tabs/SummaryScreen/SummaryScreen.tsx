@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native-web';
 import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
-
+import { OPENAI_API_KEY } from 'react-native-dotenv';
 import {
     Box,
     Heading,
@@ -49,7 +49,7 @@ export default function SummaryScreen({ navigation }: any) {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer sk-proj-Mq1OD4U3rpPZAa1IsxdIT3BlbkFJ4TmKVm9XQDiotqz3eRUx`,
+                        'Authorization': `Bearer ${OPENAI_API_KEY}`,
                     },
                 }
             );
